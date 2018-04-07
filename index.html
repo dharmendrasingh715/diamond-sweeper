@@ -5,103 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="styles/_shared.css">
+  <link rel="stylesheet" type="text/css" href="styles/_small.css">
+  <link rel="stylesheet" type="text/css" href="styles/_medium.css">
+  <link rel="stylesheet" type="text/css" href="styles/_large.css">
 </head>
 <body>
     <div id="container">
-      <div>
-        <div class="messages"></div>
-        <table class="diamondsweeper-board">
-          <tbody>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-            <tr>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-              <td><div class="cell unknown"></div></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="controls">
-        <button type="button" name="button" class="new-game">New Game</button>
-        <button type="button" name="button" class="new-game hints">New Game with Hints Enabled</button>
-        <button type="button" name="button" class="save-game">Save Game</button>
-        <button type="button" name="button" class="load-game">Load Last Game</button>
-      </div>
+		<div class="rules">
+			<h2>Diamond Sweeper</h2>
+			<b>The rules of the game are as follows:</b><br/>
+			There are 8 diamonds hidden on the board, each diamond behind one of the squares<br/>
+			Click on boxes to open them (You can play with hints to know the general direction of nearest diamond)<br/>
+			The game ends when all diamonds are found. Your score is the number of squares still left unturned.<br/>
+		</div>
+		<div class="messages">hello</div>
+        <div class="diamondSweeper-board">
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+			<div class="cell unknown"></div>
+        </div>
+		<div id="controls">
+			<button type="button" name="button" class="new-game">New Game</button>
+			<button type="button" name="button" class="new-game hints">New Game with Hints Enabled</button>
+			<button type="button" name="button" class="save-game">Save Game</button>
+			<button type="button" name="button" class="load-game">Load Last Game</button>
+		</div>
     </div>
     <script type="text/javascript" src="app.js"></script>
 	<script type="text/javascript">

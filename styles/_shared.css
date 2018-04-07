@@ -1,0 +1,78 @@
+body {
+    background-color: #efefef;
+    padding: 0;
+    margin: 0;
+}
+  
+#container {
+    background-color: #ffffff;
+    margin-left : auto;
+    margin-Right : auto;
+    border: 1px solid #ddd;
+    height:100vh;
+}
+
+.rules {
+    padding: 10px;
+    text-align: center;
+} 
+
+.messages {
+    text-align: center;
+    width: 80%;
+    margin: 20px auto;
+    padding: 5px;
+    font-size: 1.2em;
+    color: #BD4250;
+}
+
+.diamondSweeper-board {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 20px auto;
+}
+
+.cell.diamond {
+    background-image: url(../img/diamond.png); 
+}
+
+.cell.unknown {
+    background-image: url(../img/question.png);
+}
+
+#controls {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.diamondSweeper-board .cell {
+    border: 1px solid black; 
+    cursor : pointer;
+    transform: rotate(0deg);
+    background-size: contain;
+    margin-bottom: 5px;
+}
+.diamondSweeper-board .cell:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+
+.cell.right {
+    background-image: url(../img/arrow.png); 
+}
+.cell.left {
+    background-image: url(../img/arrow.png);
+    transform: rotate(180deg);
+}
+.cell.up {
+    background-image: url(../img/arrow.png);
+    transform: rotate(-90deg);
+}
+.cell.down {
+    background-image: url(../img/arrow.png);
+    transform: rotate(90deg);
+}

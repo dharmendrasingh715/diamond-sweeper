@@ -73,7 +73,7 @@ var Game = function() {
 
     function generateScore() {
         var remainingCells = container.getElementsByClassName('unknown');
-        messageBoard.innerHTML = "<h3>Game Over!! Your Score: "+ remainingCells.length +"</h3>";
+        messageBoard.innerHTML = "Game Over!! Your Score: "+ remainingCells.length;
     }
 
     function saveGame() {
@@ -83,7 +83,7 @@ var Game = function() {
             openEmptyPositions: openEmptyPositions
         }
         gameStorage.setItem('gameStats',JSON.stringify(gameStats));
-        messageBoard.innerHTML = "<h3>Game Saved!! You can load this game at later times</h3>";
+        messageBoard.innerHTML = "Game Saved!! You can load this game at later times";
     }
 
     function getRandomPositions(top,n) {
