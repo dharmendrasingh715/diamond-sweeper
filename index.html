@@ -96,8 +96,38 @@
           </tbody>
         </table>
       </div>
+      <div id="controls">
+        <button type="button" name="button" class="new-game">New Game</button>
+        <button type="button" name="button" class="new-game hints">New Game with Hints Enabled</button>
+        <button type="button" name="button" class="save-game">Save Game</button>
+        <button type="button" name="button" class="load-game">Load Last Game</button>
+      </div>
     </div>
-    <script src="app.js"></script>
-    <script>Game(document.getElementById("container"));</script>
+    <script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript">
+	
+		var container = document.getElementById("container");
+		Game.init(document.getElementById("container"));
+
+		document.getElementById('controls').onclick = function (event){ 
+			var target = event.target;
+			if (target.className == 'new-game') {  
+				Game.init(document.getElementById("container"));
+			}
+
+			if (target.className == 'new-game hints') {  
+				Game.init(document.getElementById("container"), true);
+			}
+
+			if (target.className == 'save-game') {  
+				Game.saveGame();
+			}
+
+			if (target.className == 'load-game') {
+				var gameData = JSON.parse(localStorage.getItem('gameStats'));
+				Game.init(document.getElementById("container"), true , gameData.diamondPositions, gameData.diamondFoundPositions, gameData.openEmptyPositions);
+			}
+		}
+    </script>
   </body>
 </html>

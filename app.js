@@ -1,17 +1,48 @@
-var Game = function(container) {
-
-    if(container === undefined) {
-        throw('Container not found');
-    }
+var Game = function() {
 
     var cells = container.getElementsByClassName('cell');
     var cellsArray = Array.from(cells);
     var messageBoard = container.getElementsByClassName('messages')[0];
-    var diamondPositions = getRandomPositions(cellsArray.length-1,8);
-    var hints =  true;
+    var diamondPositions,openEmptyPositions,diamondFoundPositions,hints;
+    var gameStorage = window.localStorage;
+
+    function init(container, hint, diamonds, diamondsFound, emptyPositions,) {
+        if(container === undefined) {
+            throw('Container not found');
+        }
+
+        container.onclick = "";
+        messageBoard.innerHTML = "";
+        diamondPositions = diamonds == undefined?getRandomPositions(cellsArray.length-1,8):diamonds;
+
+        cellsArray.forEach(function(v){
+            v.className = 'cell unknown';
+        });
+
+        if(diamondsFound == undefined) {
+            diamondFoundPositions = [];
+        } else {
+            diamondFoundPositions = diamondsFound;
+            diamondFoundPositions.forEach(function(v){
+                cells[v].className = "cell diamond";
+            });
+        }
+
+        if(emptyPositions == undefined) {
+            openEmptyPositions = [];
+        } else {
+            openEmptyPositions = emptyPositions;
+            openEmptyPositions.forEach(function(v){
+                cells[v].className = "cell";
+            });
+        }
+
+        hints = hint || false;
+        container.onclick = generateGame;
+    }
 
 
-    container.onclick = function (event) {
+    function generateGame (event) {
         var target = event.target;
         if(diamondPositions.length == 0) {
             return false;
@@ -19,12 +50,14 @@ var Game = function(container) {
         if (target.className == 'cell unknown') {
             var clickIndex = cellsArray.indexOf(target);
             if( inArray(diamondPositions,clickIndex) ) {
+                diamondFoundPositions.push(clickIndex);
                 target.className = "cell diamond";
                 diamondPositions.splice(diamondPositions.indexOf(clickIndex),1);
                 if(diamondPositions.length == 0) {
                   generateScore();
                 }
             } else {
+                openEmptyPositions.push(clickIndex);
                 if(hints) {
                     var previousArrows = container.getElementsByClassName('arrow');
                     for(var i = 0; i < previousArrows.length; i++) {
@@ -36,11 +69,21 @@ var Game = function(container) {
                 }
             }
         }
-    }
+    };
 
     function generateScore() {
         var remainingCells = container.getElementsByClassName('unknown');
         messageBoard.innerHTML = "<h3>Game Over!! Your Score: "+ remainingCells.length +"</h3>";
+    }
+
+    function saveGame() {
+        var gameStats = {
+            diamondPositions: diamondPositions,
+            diamondFoundPositions: diamondFoundPositions,
+            openEmptyPositions: openEmptyPositions
+        }
+        gameStorage.setItem('gameStats',JSON.stringify(gameStats));
+        messageBoard.innerHTML = "<h3>Game Saved!! You can load this game at later times</h3>";
     }
 
     function getRandomPositions(top,n) {
@@ -105,4 +148,8 @@ var Game = function(container) {
         return Math.min.apply(null, numArray);
     }
 
-}
+    return {
+        init: init,
+        saveGame: saveGame
+    }
+}();
