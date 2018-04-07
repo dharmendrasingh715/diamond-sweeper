@@ -8,6 +8,8 @@ var Game = function(container) {
     var cellsArray = Array.from(cells);
     var messageBoard = container.getElementsByClassName('messages')[0];
     var diamondPositions = getRandomPositions(cellsArray.length-1,8);
+    var hints =  true;
+
 
     container.onclick = function (event) {
         var target = event.target;
@@ -23,7 +25,15 @@ var Game = function(container) {
                   generateScore();
                 }
             } else {
-                target.className = "cell";
+                if(hints) {
+                    var previousArrows = container.getElementsByClassName('arrow');
+                    for(var i = 0; i < previousArrows.length; i++) {
+                        previousArrows[i].className = "cell";
+                    }
+                    target.className = "cell arrow " + getNearestDiamond(clickIndex);
+                } else {
+                    target.className = "cell";
+                }
             }
         }
     }
@@ -53,6 +63,46 @@ var Game = function(container) {
 
     function inArray(array,n) {
         return array.indexOf(n)!=- 1;
+    }
+
+    function getNearestDiamond(clickedIndex) {
+        var yOfI = Math.floor(clickedIndex/8);
+        var xOfI = clickedIndex%8;
+        var distances = [];
+        var directions = [];
+        diamondPositions.forEach(function(v){
+            var yOfV = Math.floor(v/8);
+            var xOfV = v%8;
+            var diffY = 0;
+            var diffX = 0;
+            if(yOfI > yOfV) {
+                diffY = yOfI - yOfV;
+                directions.push('up');
+            } else if(yOfI < yOfV) {
+                diffY = yOfV - yOfI;
+                directions.push('down');
+            }
+
+            if(xOfI > xOfV) {
+                if(diffY == 0) {
+                  directions.push('left');
+                }
+                diffX = xOfI - xOfV;
+            } else if(xOfI < xOfV) {
+                if(diffY == 0) {
+                  directions.push('right');
+                }
+                diffX = xOfV - xOfI;
+            }
+            distances.push(diffX + diffY);
+
+        });
+        var shortest = getMinOfArray(distances);
+        return directions[distances.indexOf(shortest)];
+    }
+
+    function getMinOfArray(numArray) {
+        return Math.min.apply(null, numArray);
     }
 
 }
