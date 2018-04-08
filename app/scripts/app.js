@@ -1,10 +1,12 @@
-var Game = function() {
 
-    var cells ,cellsArray ,messageBoard ,diamondPositions,openEmptyPositions,diamondFoundPositions,hints;
+'use strict';
+var Game = (function() {
+    var container,cells ,cellsArray ,messageBoard ,diamondPositions,openEmptyPositions,diamondFoundPositions,hints;
     var gameStorage = window.localStorage;
 
-    function init(container, hint, diamonds, diamondsFound, emptyPositions) {
+    function init(containerBlock, hint, diamonds, diamondsFound, emptyPositions) {
 
+        container = containerBlock;
         cells = container.getElementsByClassName('cell');
         cellsArray = Array.from(cells);
         messageBoard = container.getElementsByClassName('messages')[0];
@@ -14,29 +16,29 @@ var Game = function() {
             throw('Container not found');
         }
 
-        container.onclick = "";
-        messageBoard.innerHTML = "";
-        diamondPositions = diamonds == undefined?getRandomPositions(cellsArray.length-1,8):diamonds;
+        container.onclick = '';
+        messageBoard.innerHTML = '';
+        diamondPositions = diamonds === undefined?getRandomPositions(cellsArray.length-1,8):diamonds;
 
         cellsArray.forEach(function(v){
             v.className = 'cell unknown';
         });
 
-        if(diamondsFound == undefined) {
+        if(diamondsFound === undefined) {
             diamondFoundPositions = [];
         } else {
             diamondFoundPositions = diamondsFound;
             diamondFoundPositions.forEach(function(v){
-                cells[v].className = "cell diamond";
+                cells[v].className = 'cell diamond';
             });
         }
 
-        if(emptyPositions == undefined) {
+        if(emptyPositions === undefined) {
             openEmptyPositions = [];
         } else {
             openEmptyPositions = emptyPositions;
             openEmptyPositions.forEach(function(v){
-                cells[v].className = "cell";
+                cells[v].className = 'cell';
             });
         }
 
@@ -47,16 +49,16 @@ var Game = function() {
 
     function generateGame (event) {
         var target = event.target;
-        if(diamondPositions.length == 0) {
+        if(diamondPositions.length === 0) {
             return false;
         }
-        if (target.className == 'cell unknown') {
+        if (target.className === 'cell unknown') {
             var clickIndex = cellsArray.indexOf(target);
             if( inArray(diamondPositions,clickIndex) ) {
                 diamondFoundPositions.push(clickIndex);
-                target.className = "cell diamond";
+                target.className = 'cell diamond';
                 diamondPositions.splice(diamondPositions.indexOf(clickIndex),1);
-                if(diamondPositions.length == 0) {
+                if(diamondPositions.length === 0) {
                   generateScore();
                 }
             } else {
@@ -64,19 +66,19 @@ var Game = function() {
                 if(hints) {
                     var previousArrows = container.getElementsByClassName('arrow');
                     for(var i = 0; i < previousArrows.length; i++) {
-                        previousArrows[i].className = "cell";
+                        previousArrows[i].className = 'cell';
                     }
-                    target.className = "cell arrow " + getNearestDiamond(clickIndex);
+                    target.className = 'cell arrow ' + getNearestDiamond(clickIndex);
                 } else {
-                    target.className = "cell";
+                    target.className = 'cell';
                 }
             }
         }
-    };
+    }
 
     function generateScore() {
         var remainingCells = container.getElementsByClassName('unknown');
-        messageBoard.innerHTML = "Game Over!! Your Score: "+ remainingCells.length;
+        messageBoard.innerHTML = 'Game Over!! Your Score: '+ remainingCells.length;
     }
 
     function saveGame() {
@@ -84,12 +86,12 @@ var Game = function() {
             diamondPositions: diamondPositions,
             diamondFoundPositions: diamondFoundPositions,
             openEmptyPositions: openEmptyPositions
-        }
-        if(diamondPositions.length == 0) {
-            messageBoard.innerHTML = "Game already finished!! You can not save a finished game";
+        };
+        if(diamondPositions.length === 0) {
+            messageBoard.innerHTML = 'Game already finished!! You can not save a finished game';
         } else {
             gameStorage.setItem('gameStats',JSON.stringify(gameStats));
-            messageBoard.innerHTML = "Game Saved!! You can load this game at later times";
+            messageBoard.innerHTML = 'Game Saved!! You can load this game at later times';
         }
         
     }
@@ -113,7 +115,7 @@ var Game = function() {
     }
 
     function inArray(array,n) {
-        return array.indexOf(n)!=- 1;
+        return array.indexOf(n)!==- 1;
     }
 
     function getNearestDiamond(clickedIndex) {
@@ -135,12 +137,12 @@ var Game = function() {
             }
 
             if(xOfI > xOfV) {
-                if(diffY == 0) {
+                if(diffY === 0) {
                   directions.push('left');
                 }
                 diffX = xOfI - xOfV;
             } else if(xOfI < xOfV) {
-                if(diffY == 0) {
+                if(diffY === 0) {
                   directions.push('right');
                 }
                 diffX = xOfV - xOfI;
@@ -159,5 +161,5 @@ var Game = function() {
     return {
         init: init,
         saveGame: saveGame
-    }
-}();
+    };
+})();

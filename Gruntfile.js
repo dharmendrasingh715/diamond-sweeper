@@ -1,3 +1,4 @@
+'use strict';
 var SERVER_PORT = 9000;
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
@@ -42,7 +43,7 @@ module.exports = function (grunt) {
 			},
 			livereload: {
 				options: {
-					middleware: function (connect) {
+					middleware: function () {
 						return [
 							lrSnippet,
 							serveStatic('.tmp'),
@@ -53,7 +54,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				options: {
-					middleware: function (connect) {
+					middleware: function () {
 						return [
 							serveStatic('dist')
 						];
@@ -227,4 +228,4 @@ module.exports = function (grunt) {
 		'build'
 	]);
 
-}
+};
