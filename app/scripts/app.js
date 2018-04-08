@@ -1,16 +1,22 @@
 
 'use strict';
 var Game = (function() {
-    var container,cells ,cellsArray ,messageBoard ,diamondPositions,openEmptyPositions,diamondFoundPositions,hints;
+    var container,cells ,cellsArray ,messageBoard ,diamondPositions,openEmptyPositions,diamondFoundPositions,hints,api;
     var gameStorage = window.localStorage;
 
+    /*
+        Initialize game
+        With or without hints
+        Or load from a saved state
+    */
     function init(containerBlock, hint, diamonds, diamondsFound, emptyPositions) {
 
         container = containerBlock;
+
+        //Caching DOM 
         cells = container.getElementsByClassName('cell');
         cellsArray = Array.from(cells);
         messageBoard = container.getElementsByClassName('messages')[0];
-
 
         if(container === undefined) {
             throw('Container not found');
@@ -18,7 +24,7 @@ var Game = (function() {
 
         container.onclick = '';
         messageBoard.innerHTML = '';
-        diamondPositions = diamonds === undefined?getRandomPositions(cellsArray.length-1,8):diamonds;
+        diamondPositions = diamonds === undefined?_getRandomPositions(cellsArray.length-1,8):diamonds;
 
         cellsArray.forEach(function(v){
             v.className = 'cell unknown';
@@ -43,23 +49,27 @@ var Game = (function() {
         }
 
         hints = hint || false;
-        container.onclick = generateGame;
+        container.onclick = _generateGame;
     }
 
-
-    function generateGame (event) {
+    /*
+        Adding game logic
+        If hints show arrows pointing in general direction of nearest diamond
+        Store state in variable for saving it in @gameStorage
+    */
+    function _generateGame (event) {
         var target = event.target;
         if(diamondPositions.length === 0) {
             return false;
         }
         if (target.className === 'cell unknown') {
             var clickIndex = cellsArray.indexOf(target);
-            if( inArray(diamondPositions,clickIndex) ) {
+            if( _inArray(diamondPositions,clickIndex) ) {
                 diamondFoundPositions.push(clickIndex);
                 target.className = 'cell diamond';
                 diamondPositions.splice(diamondPositions.indexOf(clickIndex),1);
                 if(diamondPositions.length === 0) {
-                  generateScore();
+                  _generateScore();
                 }
             } else {
                 openEmptyPositions.push(clickIndex);
@@ -68,7 +78,7 @@ var Game = (function() {
                     for(var i = 0; i < previousArrows.length; i++) {
                         previousArrows[i].className = 'cell';
                     }
-                    target.className = 'cell arrow ' + getNearestDiamond(clickIndex);
+                    target.className = 'cell arrow ' + _getNearestDiamond(clickIndex);
                 } else {
                     target.className = 'cell';
                 }
@@ -76,11 +86,18 @@ var Game = (function() {
         }
     }
 
-    function generateScore() {
+    /*
+        Show score when diamonds found
+    */
+    function _generateScore() {
         var remainingCells = container.getElementsByClassName('unknown');
         messageBoard.innerHTML = 'Game Over!! Your Score: '+ remainingCells.length;
     }
 
+    /*
+        Save game state
+        If  game finished don't save
+    */
     function saveGame() {
         var gameStats = {
             diamondPositions: diamondPositions,
@@ -96,7 +113,10 @@ var Game = (function() {
         
     }
 
-    function getRandomPositions(top,n) {
+    /*
+        Get n random numbers from array starting from 0 to top -1
+    */
+    function _getRandomPositions(top,n) {
         var intArray = [];
 
         for (var i = 0; i <= top; i++) {
@@ -114,11 +134,21 @@ var Game = (function() {
         return result;
     }
 
-    function inArray(array,n) {
+    /*
+        Check if element in array
+    */
+    function _inArray(array,n) {
         return array.indexOf(n)!==- 1;
     }
 
-    function getNearestDiamond(clickedIndex) {
+    /*
+        Get nearest diamond direction from clicked cell
+        Algo :
+            Calculate steps from clicked cell to all unfound diamonds by adding steps in coulmns and rows
+            If nearest diamond is in top/bottom rows show top/bottom arrows.
+            Else show left/right arrow if nearest diamond in same row and left/right coloumn. 
+    */
+    function _getNearestDiamond(clickedIndex) {
         var yOfI = Math.floor(clickedIndex/8);
         var xOfI = clickedIndex%8;
         var distances = [];
@@ -150,16 +180,38 @@ var Game = (function() {
             distances.push(diffX + diffY);
 
         });
-        var shortest = getMinOfArray(distances);
+        var shortest = _getMinOfArray(distances);
         return directions[distances.indexOf(shortest)];
     }
 
-    function getMinOfArray(numArray) {
+    /*
+        get the mininmum number in an array
+    */
+    function _getMinOfArray(numArray) {
         return Math.min.apply(null, numArray);
     }
 
-    return {
+    /*
+        Public API
+    */
+    api = {
         init: init,
         saveGame: saveGame
     };
+
+
+    /* 
+        Private API 
+        For testing private functions
+    */
+    /* test-code */
+    api.generateGame = _generateGame;
+    api.generateScore = _generateScore;
+    api.getNearestDiamond = _getNearestDiamond;
+    api.getRandomPositions = _getRandomPositions;
+    api.getMinOfArray = _getMinOfArray;
+    api.inArray = _inArray;
+    /* end-test-code */
+
+    return api;
 })();

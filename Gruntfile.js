@@ -87,14 +87,14 @@ module.exports = function (grunt) {
 			pivotal: {
 				src: 'app/scripts/*.js',
 				options: {
-				  specs: 'test/spec/*.js',
+					specs: 'test/spec/*.js',
 				}
 			}
 		},
 		sass: {
 			options: {
-			  sourceMap: true,
-			  includePaths: ['app/bower_components']
+				sourceMap: true,
+				includePaths: ['app/bower_components']
 			},
 			dist: {
 				files: [{
@@ -185,6 +185,15 @@ module.exports = function (grunt) {
 					]
 				}
 			}
+		},
+		strip_code: {
+			options: {
+				start_comment: "test-code",
+				end_comment: "end-test-code",
+			},
+			your_target: {
+				src: "dist/scripts/*.js"
+			}
 		}
 	});
 
@@ -204,7 +213,7 @@ module.exports = function (grunt) {
 		]);
 	});
 
-	grunt.registerTask('test',[
+	grunt.registerTask('test', [
 		'jasmine'
 	]);
 
@@ -216,6 +225,7 @@ module.exports = function (grunt) {
 		'htmlmin',
 		'concat',
 		'cssmin',
+		// 'strip-code',
 		'uglify',
 		'copy',
 		'rev',
