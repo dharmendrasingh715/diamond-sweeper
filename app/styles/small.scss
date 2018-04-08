@@ -1,0 +1,22 @@
+
+@media screen and (max-width: 767px) {
+    #container {
+        width: 100%;
+
+        .diamondSweeper-board {
+            width:100%;
+    
+            .cell {
+                width: 11%;
+            }
+        } 
+    }
+
+    #controls {
+        .button {
+            max-width: 65%;
+        }
+    }
+}
+
+

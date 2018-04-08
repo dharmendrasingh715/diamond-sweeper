@@ -1,12 +1,15 @@
 var Game = function() {
 
-    var cells = container.getElementsByClassName('cell');
-    var cellsArray = Array.from(cells);
-    var messageBoard = container.getElementsByClassName('messages')[0];
-    var diamondPositions,openEmptyPositions,diamondFoundPositions,hints;
+    var cells ,cellsArray ,messageBoard ,diamondPositions,openEmptyPositions,diamondFoundPositions,hints;
     var gameStorage = window.localStorage;
 
-    function init(container, hint, diamonds, diamondsFound, emptyPositions,) {
+    function init(container, hint, diamonds, diamondsFound, emptyPositions) {
+
+        cells = container.getElementsByClassName('cell');
+        cellsArray = Array.from(cells);
+        messageBoard = container.getElementsByClassName('messages')[0];
+
+
         if(container === undefined) {
             throw('Container not found');
         }
@@ -82,8 +85,13 @@ var Game = function() {
             diamondFoundPositions: diamondFoundPositions,
             openEmptyPositions: openEmptyPositions
         }
-        gameStorage.setItem('gameStats',JSON.stringify(gameStats));
-        messageBoard.innerHTML = "Game Saved!! You can load this game at later times";
+        if(diamondPositions.length == 0) {
+            messageBoard.innerHTML = "Game already finished!! You can not save a finished game";
+        } else {
+            gameStorage.setItem('gameStats',JSON.stringify(gameStats));
+            messageBoard.innerHTML = "Game Saved!! You can load this game at later times";
+        }
+        
     }
 
     function getRandomPositions(top,n) {

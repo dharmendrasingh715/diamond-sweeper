@@ -1,0 +1,15 @@
+@media (min-width: 1024px) {
+    #container {
+        width: 800px;
+
+        .diamondSweeper-board {
+            width:60%;
+
+            .cell {
+                width: 11%;
+            }
+        } 
+    }
+}
+  
+  

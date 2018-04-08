@@ -9,7 +9,7 @@ body {
     margin-left : auto;
     margin-Right : auto;
     border: 1px solid #ddd;
-    height:100vh;
+    height:auto;
 }
 
 .rules {
@@ -36,16 +36,20 @@ body {
 }
 
 .cell.diamond {
-    background-image: url(../img/diamond.png); 
+    background-image: url(../images/diamond.png); 
 }
 
 .cell.unknown {
-    background-image: url(../img/question.png);
+    background-image: url(../images/question.png);
 }
 
 #controls {
     margin-top: 20px;
     text-align: center;
+
+    .button {
+        max-width: 40%;
+    }
 }
 
 .diamondSweeper-board .cell {
@@ -54,25 +58,26 @@ body {
     transform: rotate(0deg);
     background-size: contain;
     margin-bottom: 5px;
+
+    &::after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
 }
-.diamondSweeper-board .cell:after {
-    content: "";
-    display: block;
-    padding-bottom: 100%;
-  }
 
 .cell.right {
-    background-image: url(../img/arrow.png); 
+    background-image: url(../images/arrow.png); 
 }
 .cell.left {
-    background-image: url(../img/arrow.png);
+    background-image: url(../images/arrow.png);
     transform: rotate(180deg);
 }
 .cell.up {
-    background-image: url(../img/arrow.png);
+    background-image: url(../images/arrow.png);
     transform: rotate(-90deg);
 }
 .cell.down {
-    background-image: url(../img/arrow.png);
+    background-image: url(../images/arrow.png);
     transform: rotate(90deg);
 }

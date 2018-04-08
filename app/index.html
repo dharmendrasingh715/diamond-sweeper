@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="styles/_shared.css">
-  <link rel="stylesheet" type="text/css" href="styles/_small.css">
-  <link rel="stylesheet" type="text/css" href="styles/_medium.css">
-  <link rel="stylesheet" type="text/css" href="styles/_large.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<!-- build:css(.tmp) styles/style.css -->
+	<link rel="stylesheet" type="text/css" href="styles/buttons.css">
+	<link rel="stylesheet" type="text/css" href="styles/shared.css">
+	<link rel="stylesheet" type="text/css" href="styles/small.css">
+	<link rel="stylesheet" type="text/css" href="styles/medium.css">
+	<link rel="stylesheet" type="text/css" href="styles/large.css">
+	<!-- endbuild -->
+
 </head>
+
 <body>
-    <div id="container">
+	<div id="container">
 		<div class="rules">
 			<h2>Diamond Sweeper</h2>
-			<b>The rules of the game are as follows:</b><br/>
-			There are 8 diamonds hidden on the board, each diamond behind one of the squares<br/>
-			Click on boxes to open them (You can play with hints to know the general direction of nearest diamond)<br/>
-			The game ends when all diamonds are found. Your score is the number of squares still left unturned.<br/>
+			<b>The rules of the game are as follows:</b>
+			<br/> There are 8 diamonds hidden on the board, each diamond behind one of the squares
+			<br/> Click on boxes to open them (You can play with hints to know the general direction of nearest diamond)
+			<br/> The game ends when all diamonds are found. Your score is the number of squares still left unturned.
+			<br/>
 		</div>
 		<div class="messages">hello</div>
-        <div class="diamondSweeper-board">
+		<div class="diamondSweeper-board">
 			<div class="cell unknown"></div>
 			<div class="cell unknown"></div>
 			<div class="cell unknown"></div>
@@ -85,39 +92,18 @@
 			<div class="cell unknown"></div>
 			<div class="cell unknown"></div>
 			<div class="cell unknown"></div>
-        </div>
-		<div id="controls">
-			<button type="button" name="button" class="new-game">New Game</button>
-			<button type="button" name="button" class="new-game hints">New Game with Hints Enabled</button>
-			<button type="button" name="button" class="save-game">Save Game</button>
-			<button type="button" name="button" class="load-game">Load Last Game</button>
 		</div>
-    </div>
-    <script type="text/javascript" src="app.js"></script>
-	<script type="text/javascript">
-	
-		var container = document.getElementById("container");
-		Game.init(document.getElementById("container"));
+		<div id="controls">
+			<button type="button" name="button" class="button -blue new-game">New Game</button>
+			<button type="button" name="button" class="button -blue new-game hints">New Game with Hints Enabled</button>
+			<button type="button" name="button" class="button -blue save-game">Save Game</button>
+			<button type="button" name="button" class="button -blue load-game">Load Last Game</button>
+		</div>
+	</div>
+	<!-- build:js scripts/app.js -->
+	<script type="text/javascript" src="scripts/app.js"></script>
+	<script type="text/javascript" src="scripts/main.js"></script>
+	<!-- endbuild -->
 
-		document.getElementById('controls').onclick = function (event){ 
-			var target = event.target;
-			if (target.className == 'new-game') {  
-				Game.init(document.getElementById("container"));
-			}
-
-			if (target.className == 'new-game hints') {  
-				Game.init(document.getElementById("container"), true);
-			}
-
-			if (target.className == 'save-game') {  
-				Game.saveGame();
-			}
-
-			if (target.className == 'load-game') {
-				var gameData = JSON.parse(localStorage.getItem('gameStats'));
-				Game.init(document.getElementById("container"), true , gameData.diamondPositions, gameData.diamondFoundPositions, gameData.openEmptyPositions);
-			}
-		}
-    </script>
-  </body>
+</body>
 </html>
