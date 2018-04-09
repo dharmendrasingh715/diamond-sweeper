@@ -200,12 +200,7 @@ var Game = (function() {
     };
 
 
-    /* 
-        Private API 
-        For testing private functions
-    */
     /* test-code */
-    api.generateGame = _generateGame;
     api.generateScore = _generateScore;
     api.getNearestDiamond = _getNearestDiamond;
     api.getRandomPositions = _getRandomPositions;

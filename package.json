@@ -1,8 +1,8 @@
 {
-  "name": "testing",
+  "name": "diamondsweeper",
   "version": "1.0.0",
-  "description": "testing with grunt",
-  "main": "index.js",
+  "description": "A simple game in JavaScript",
+  "main": "app/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

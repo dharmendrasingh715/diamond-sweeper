@@ -188,11 +188,15 @@ module.exports = function (grunt) {
 		},
 		strip_code: {
 			options: {
-				start_comment: "test-code",
-				end_comment: "end-test-code",
+				blocks: [
+					{
+						start_block: "/* test-code */",
+						end_block: "/* end-test-code */"
+					}
+				]
 			},
 			your_target: {
-				src: "dist/scripts/*.js"
+				src: ".tmp/concat/scripts/*.js"
 			}
 		}
 	});
@@ -225,7 +229,7 @@ module.exports = function (grunt) {
 		'htmlmin',
 		'concat',
 		'cssmin',
-		// 'strip-code',
+		'strip_code',
 		'uglify',
 		'copy',
 		'rev',
